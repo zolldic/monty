@@ -8,9 +8,16 @@
 
 void _push(stack_t **st, obj_t *object)
 {
+
+	char **ob;
+
 	(void)object;
 	(void)st;
-	printf("this is _push function\n");
+
+
+	ob = malloc(sizeof(char **));
+	ob = _tokenize(object->str, " \t");
+
 	object->flag = NOERR;
 
 }
