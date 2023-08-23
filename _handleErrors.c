@@ -24,20 +24,22 @@ void _error(obj_t *object)
 			break;
 		case UKERR:
 			/* unknown instruction error */
-			fprintf(stderr, "L<line_number>: unknown instruction <opcode>");
+			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
 			break;
 		case LIERR:
 			/* error with a command */
-			fprintf(stderr, "L<line_number>: unknown instruction <opcode>");
+			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
 			break;
 		default:
 			/* NOERR */
 			break;
 	}
 
-	if (file->flag != NOERR)
+	if (object->flag != NOERR)
 	{
-		_free_object(file);
+		/*_free_object(object);*/
 		exit(EXIT_FAILURE);
 	}
 }
+
+

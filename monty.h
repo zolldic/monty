@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <errno.h>
 
+
 /**
  * struct obj - structre to contain the information about opcodes.
  * @name: file name.
@@ -39,7 +40,7 @@ typedef struct obj
 	int flag;
 } obj_t;
 
-/**
+/*
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
@@ -50,11 +51,11 @@ typedef struct obj
  */
 typedef struct stack_s
 {
-	int n;
-
-	struct stack_s *prev;
-	struct stack_s *next;
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
 } stack_t;
+
 
 /**
  * struct instruction_s - opcode and its function
@@ -70,12 +71,22 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, obj_t *);
 } instruction_t;
 
+
+
 /* functions */
 int _readline(obj_t *);
-int _exec(obj_t *);
+int _exec(obj_t *object);
 void _error(obj_t *);
 void _free_object(obj_t *);
 
+/* opcodes functions */
+void _push(stack_t **, obj_t *);
+void _pall(stack_t **, obj_t *);
+void _pint(stack_t **, obj_t *);
+void _pop(stack_t **, obj_t *);
+void _swap(stack_t **, obj_t *);
+void _add(stack_t **, obj_t *);
+void _nop(stack_t **, obj_t *);
 
 extern stack_t *stack;
 #endif

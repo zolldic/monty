@@ -8,7 +8,7 @@
 int _readline(obj_t *file)
 {
 	FILE *fp;
-	int len = 0;
+	size_t len = 0;
 	ssize_t read;
 
 	fp = fopen(file->name, "r");
@@ -22,8 +22,10 @@ int _readline(obj_t *file)
 		if (!_exec(file))
 		{
 			/* flag = {LIERR | UKERR} */
+			printf("_exec error\n");
 			break;
 		}
+
 	}
 
 	fclose(fp);
@@ -39,19 +41,27 @@ int _exec(obj_t *object)
 {
 	int i;
 	char *str;
+
 	instruction_t s[] = {
 			{"push", _push},
 			{"pall", _pall},
 			{"pint", _pint},
 			{"pop", _pop},
+			{"swap", _swap},
+			{"add", _add},
+			{"nop", _nop},
 			{NULL, NULL}
 		};
 
 	str = strtok(object->str, " \t\n");
 	for (i = 0; s[i].opcode; i++)
-		if (strcmp(s[i].opcode, str))
-			return (s[i].f(&stack, object));
+	{
+		if (strcmp(s[i].opcode, str) == 0)
+			s[i].f(&stack, object);
+		else
+			object->flag = UKERR;
+	}
+
 	/* unknown instruction */
-	object->flag = UKERR;
 	return (-1);
 }

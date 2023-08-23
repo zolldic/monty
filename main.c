@@ -12,6 +12,8 @@ int main(int ac, char **av)
 	int n;
 	obj_t *file;
 
+	(void)n;
+
 	file = (obj_t *)malloc(sizeof(obj_t));
 	if (!file)
 	{

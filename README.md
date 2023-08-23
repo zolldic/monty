@@ -17,6 +17,7 @@
 		should execute the opcode related function.
 	- `_free_object()`:
 		free all the data stored in the object.
+	- `opcodes functions` for the mandatory tasks.
 
 - Notes:
 	- naming convention:
