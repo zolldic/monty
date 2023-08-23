@@ -81,6 +81,7 @@ void _error(obj_t *);
 void _free_object(obj_t *);
 char **_tokenize(char *str, char *split);
 int _len(char **o);
+stack_t *add_node_end(stack_t **head, const int n);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);

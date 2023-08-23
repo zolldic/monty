@@ -1,6 +1,47 @@
 #include "monty.h"
 
 /**
+  * _len - find the length of string array.
+  * @o: array.
+  * Return: length of string array.
+  */
+int _len(char **o)
+{
+	int i;
+	unsigned int length = 0;
+
+	for (i = 0; o[i]; i++)
+		length++;
+	return (length);
+}
+
+/**
+  * add_node_end - adds a new node at the end of a stack_t list.
+  * @head: stack_t list.
+  * @n: new node value.
+  * Return: the address of the new element, or NULL if it failed.
+  */
+stack_t *add_node_end(stack_t **head, const int n)
+{
+	stack_t *tail = *head;
+	stack_t *new = malloc(sizeof(stack_t));
+
+	if (!new)
+		return (NULL);
+	while (tail && tail->next)
+		tail = tail->next;
+	new->n = n;
+	if (tail)
+	{
+		new->prev = tail;
+		tail->next = new;
+	}
+	else
+		*head = new;
+	return (new);
+}
+
+/**
  * _tokenize - function that split a string into tokens, our own (strtok).
  * @str: the string to tokenize
  * @split: the delim used to split's string.
