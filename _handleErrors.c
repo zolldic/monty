@@ -22,8 +22,14 @@ void _error(obj_t *object)
 		case FAERR:
 			fprintf(stderr, "Error: Can't open file %s\n", object->name);
 			break;
-		case LIERR:
+		case UKERR:
+			/* unknown instruction error */
 			fprintf(stderr, "L<line_number>: unknown instruction <opcode>");
+			break;
+		case LIERR:
+			/* error with a command */
+			fprintf(stderr, "L<line_number>: unknown instruction <opcode>");
+			break;
 		default:
 			/* NOERR */
 			break;

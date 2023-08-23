@@ -9,10 +9,12 @@
 #define NOERR -1
 #define ACERR 0
 #define FAERR 1
-#define LIERR 2
+#define UKERR 2
+#define LIERR 3
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -32,7 +34,7 @@ typedef struct obj
 {
 	char *name;
 	char *str;
-	int line;
+	unsigned int line;
 	int mode;
 	int flag;
 } obj_t;
@@ -65,11 +67,15 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	void (*f)(stack_t **stack, obj_t *);
 } instruction_t;
 
 /* functions */
-
+int _readline(obj_t *);
+int _exec(obj_t *);
 void _error(obj_t *);
 void _free_object(obj_t *);
+
+
+extern stack_t *stack;
 #endif

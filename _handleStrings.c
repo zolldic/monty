@@ -14,18 +14,44 @@ int _readline(obj_t *file)
 	fp = fopen(file->name, "r");
 	if (fp == NULL)
 	{
-		file->flag = 1;
+		file->flag = FAERR;
 		return (-1);
 	}
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
-		if (!exec(file))
+		if (!_exec(file))
 		{
-			file->flag = LIERR;
+			/* flag = {LIERR | UKERR} */
 			break;
 		}
 	}
 
 	fclose(fp);
 	return (0);
+}
+
+/**
+  * _exec - handle the execution process of opcode.
+  * @object: object holding opcode data.
+  * Return: 0 (SUCCESS) -1 otherwise.
+  */
+int _exec(obj_t *object)
+{
+	int i;
+	char *str;
+	instruction_t s[] = {
+			{"push", _push},
+			{"pall", _pall},
+			{"pint", _pint},
+			{"pop", _pop},
+			{NULL, NULL}
+		};
+
+	str = strtok(object->str, " \t\n");
+	for (i = 0; s[i].opcode; i++)
+		if (strcmp(s[i].opcode, str))
+			return (s[i].f(&stack, object));
+	/* unknown instruction */
+	object->flag = UKERR;
+	return (-1);
 }

@@ -31,7 +31,7 @@ int main(int ac, char **av)
 
 	file->name = av[1];
 	file->str = NULL;
-	file->flag = NOERROR;
+	file->flag = NOERR;
 	file->mode = STACK;
 
 	_readline(file);
