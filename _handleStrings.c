@@ -21,7 +21,7 @@ int _readline(obj_t *file)
 	{
 		if (!_exec(file))
 		{
-			/* flag = {LIERR | UKERR} */
+			/*flag = {LIERR | UKERR} */
 			printf("_exec error\n");
 			break;
 		}
@@ -40,8 +40,9 @@ int _readline(obj_t *file)
 int _exec(obj_t *object)
 {
 	int i;
-	char *str;
-	stack_t *stack;	
+	char **str;
+	stack_t *stack;
+
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -57,16 +58,14 @@ int _exec(obj_t *object)
 
 	stack = malloc(sizeof(stack_t));
 	
-	str = strtok(object->str, " \t\n");
-	printf("str-> %s\n", str);
+	str = _tokenize(object->str, " \t\n");
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, str) == 0)
-			s[i].f(&stack, object);
-		else
+		printf("s[%d].opcode: %s\n", i, s[i].opcode);
+		if (strcmp(s[i].opcode, *str) == 0)
 		{
-			object->flag = UKERR;
-			return (0);
+			s[i].f(&stack, object);
+			break;
 		}
 	}
 
