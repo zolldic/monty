@@ -16,17 +16,22 @@ void _error(obj_t *object)
 
 	switch (object->flag)
 	{
-		case 0:
+		case ACERR:
 			fprintf(stderr, "USAGE: monty file\n");
 			break;
-		case 1:
+		case FAERR:
 			fprintf(stderr, "Error: Can't open file %s\n", object->name);
 			break;
-		case 2:
+		case LIERR:
 			fprintf(stderr, "L<line_number>: unknown instruction <opcode>");
 		default:
+			/* NOERR */
 			break;
 	}
 
-	exit(EXIT_FAILURE);
+	if (file->flag != NOERR)
+	{
+		_free_object(file);
+		exit(EXIT_FAILURE);
+	}
 }

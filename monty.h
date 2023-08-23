@@ -3,15 +3,25 @@
 
 /* different libs used throughout the source code */
 
+#define _GNU_SOURCE
+#define STACK 0
+#define QUEUE 1
+#define NOERR -1
+#define ACERR 0
+#define FAERR 1
+#define LIERR 2
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <errno.h>
 
 /**
  * struct obj - structre to contain the information about opcodes.
+ * @name: file name.
  * @str: the opcode name.
  * @line: the line of the opcode in the file.
  * @mode: controller to switch moods (STACK, QUEUE)
@@ -21,10 +31,11 @@
 typedef struct obj
 {
 	char *name;
+	char *str;
 	int line;
 	int mode;
 	int flag;
-} obj_t; 
+} obj_t;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,9 +48,10 @@ typedef struct obj
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -52,11 +64,12 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* functions */
 
 void _error(obj_t *);
+void _free_object(obj_t *);
 #endif

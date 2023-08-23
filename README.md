@@ -7,6 +7,7 @@
 
 - issues:
 	- implement the 3rd case in _error().
+	- calling exit() before freeing memory.
 
 - TO-DOs:
 	- `_readLine()`:
@@ -14,6 +15,8 @@
 		if the line empty return value -1.
 	- `_exec()`:
 		should execute the opcode related function.
+	- `_free_object()`:
+		free all the data stored in the object.
 
 - Notes:
 	- naming convention:

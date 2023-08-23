@@ -9,7 +9,7 @@
 
 int main(int ac, char **av)
 {
-	int fd;
+	int n;
 	obj_t *file;
 
 	file = (obj_t *)malloc(sizeof(obj_t));
@@ -21,24 +21,21 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		file->flag = 0;
+		file->flag = ACERR;
+		/*
+		 * be careful when calling this function.
+		 * add _free_object() function to call it inside this function.
+		 */
 		_error(file);
 	}
 
 	file->name = av[1];
-	fd = open(file->name, O_RDONLY);
+	file->str = NULL;
+	file->flag = NOERROR;
+	file->mode = STACK;
 
-	if (fd == -1)
-	{
-		file->flag = 1;
-		_error(file);
-	}
-
-	/**
-	 * _readLine
-	 * check if _readline return error
-	 * print to stderr L<line_number>: unknown instruction <opcode>
-	 */
+	_readline(file);
+	_error(file);
 
 	return (0);
 }
