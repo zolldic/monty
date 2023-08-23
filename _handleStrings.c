@@ -41,6 +41,7 @@ int _exec(obj_t *object)
 {
 	int i;
 	char *str;
+	stack_t *stack;	
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -53,15 +54,23 @@ int _exec(obj_t *object)
 			{NULL, NULL}
 		};
 
+
+	stack = malloc(sizeof(stack_t));
+	
 	str = strtok(object->str, " \t\n");
+	printf("str-> %s\n", str);
 	for (i = 0; s[i].opcode; i++)
 	{
 		if (strcmp(s[i].opcode, str) == 0)
 			s[i].f(&stack, object);
 		else
+		{
 			object->flag = UKERR;
+			return (0);
+		}
 	}
 
 	/* unknown instruction */
+	/* free the stack */
 	return (-1);
 }
