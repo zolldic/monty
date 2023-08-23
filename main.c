@@ -11,6 +11,7 @@ int main(int ac, char **av)
 {
 	int n;
 	obj_t *file;
+	stack_t *stack = malloc(sizeof(stack_t));
 
 	(void)n;
 
@@ -36,7 +37,7 @@ int main(int ac, char **av)
 	file->flag = NOERR;
 	file->mode = STACK;
 
-	_readline(file);
+	_readline(&stack, file);
 	_error(file);
 
 	return (0);

@@ -1,6 +1,7 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+
 /* different libs used throughout the source code */
 
 #define _GNU_SOURCE
@@ -40,7 +41,7 @@ typedef struct obj
 	int flag;
 } obj_t;
 
-/*
+/**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
@@ -51,11 +52,10 @@ typedef struct obj
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
-
 
 /**
  * struct instruction_s - opcode and its function
@@ -74,10 +74,11 @@ typedef struct instruction_s
 
 
 /* functions */
-int _readline(obj_t *);
-int _exec(obj_t *object);
+int _readline(stack_t **, obj_t *);
+int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
 void _free_object(obj_t *);
+char **_tokenize(char *str, char *split);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);
@@ -88,5 +89,4 @@ void _swap(stack_t **, obj_t *);
 void _add(stack_t **, obj_t *);
 void _nop(stack_t **, obj_t *);
 
-extern stack_t *stack;
 #endif

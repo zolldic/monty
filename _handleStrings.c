@@ -3,9 +3,10 @@
 /**
   * _readline - read a file line by line.
   * @file: object to store data.
+  * @stack: stack ds.
   * Return: 0 (SUCCESS) -1 otherwise.
   */
-int _readline(obj_t *file)
+int _readline(stack_t **stack, obj_t *file)
 {
 	FILE *fp;
 	size_t len = 0;
@@ -19,7 +20,7 @@ int _readline(obj_t *file)
 	}
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
-		if (!_exec(file))
+		if (_exec(stack, file))
 		{
 			/*flag = {LIERR | UKERR} */
 			printf("_exec error\n");
@@ -35,9 +36,10 @@ int _readline(obj_t *file)
 /**
   * _exec - handle the execution process of opcode.
   * @object: object holding opcode data.
+  * @stack: stack ds.
   * Return: 0 (SUCCESS) -1 otherwise.
   */
-int _exec(obj_t *object)
+int _exec(stack_t **stack, obj_t *object)
 {
 	int i;
 	char **str;
@@ -59,8 +61,8 @@ int _exec(obj_t *object)
 	{
 		if (strcmp(s[i].opcode, *str) == 0)
 		{
-			s[i].f(&stack, object);
-			break;
+			s[i].f(stack, object);
+			return (0);
 		}
 	}
 
