@@ -8,6 +8,8 @@
 - issues:
 	- implement the 3rd case in _error().
 	- calling exit() before freeing memory.
+	- 🌟 There is an unexpected 0 when using _pall()
+		- related functions -> _push(), _pall()
 
 - TO-DOs:
 	- `_readLine()`:

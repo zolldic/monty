@@ -9,10 +9,19 @@
 
 void _pall(stack_t **st, obj_t *object)
 {
-	(void)st;
-	(void)object;
+	stack_t *p = *st;
 
-	printf("this is _pall function\n");
-	object->flag = NOERR;
-
+	if (object->mode == STACK)
+	{
+		while (p && p->next)
+		{
+			p = p->next;
+		}
+		while (p)
+		{
+			printf("p->n = %d\n", p->n);
+			printf("%d\n", p->n);
+			p = p->prev;
+		}
+	}
 }

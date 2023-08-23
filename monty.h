@@ -12,6 +12,7 @@
 #define FAERR 1
 #define UKERR 2
 #define LIERR 3
+#define PUSHERR 4
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,6 +80,7 @@ int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
 void _free_object(obj_t *);
 char **_tokenize(char *str, char *split);
+int _len(char **o);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);

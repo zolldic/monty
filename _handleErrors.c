@@ -30,6 +30,10 @@ void _error(obj_t *object)
 			/* error with a command */
 			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
 			break;
+		case PUSHERR:
+			/* error with a push command */
+			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+			break;
 		default:
 			/* NOERR */
 			break;
