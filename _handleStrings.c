@@ -41,8 +41,6 @@ int _exec(obj_t *object)
 {
 	int i;
 	char **str;
-	stack_t *stack;
-
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -55,13 +53,10 @@ int _exec(obj_t *object)
 			{NULL, NULL}
 		};
 
-
-	stack = malloc(sizeof(stack_t));
-	
 	str = _tokenize(object->str, " \t\n");
+
 	for (i = 0; s[i].opcode; i++)
 	{
-		printf("s[%d].opcode: %s\n", i, s[i].opcode);
 		if (strcmp(s[i].opcode, *str) == 0)
 		{
 			s[i].f(&stack, object);
