@@ -24,23 +24,6 @@
 #include <errno.h>
 
 
-/**
- * struct obj - structre to contain the information about opcodes.
- * @name: file name.
- * @str: the opcode name.
- * @line: the line of the opcode in the file.
- * @mode: controller to switch moods (STACK, QUEUE)
- * @flag: an integer value to controle errors messages.
- */
-
-typedef struct obj
-{
-	char *name;
-	char *str;
-	unsigned int line;
-	int mode;
-	int flag;
-} obj_t;
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -59,6 +42,28 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct obj - structre to contain the information about opcodes.
+ * @name: file name.
+ * @str: the opcode name.
+ * @line: the line of the opcode in the file.
+ * @mode: controller to switch moods (STACK, QUEUE)
+ * @flag: an integer value to controle errors messages.
+ * @str_tokenized: refernce to str tokenized array.
+ * @ref_to_stack: reference to stack.
+ */
+
+typedef struct obj
+{
+	char *name;
+	char *str;
+	unsigned int line;
+	int mode;
+	int flag;
+	char **str_tokenized;
+	stack_t *ref_to_stack;
+} obj_t;
+
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -73,16 +78,16 @@ typedef struct instruction_s
 } instruction_t;
 
 
-
 /* functions */
 int _readline(stack_t **, obj_t *);
 int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
-void _free_object(obj_t *);
+void _free_object(obj_t *object);
 char **_tokenize(char *str, char *split);
 int _len(char **o);
 stack_t *add_node_end(stack_t **head, const int n);
 stack_t *add_node(stack_t **head, const int n);
+void _free_stack(stack_t *head);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);

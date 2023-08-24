@@ -11,6 +11,7 @@ int _readline(stack_t **stack, obj_t *file)
 	FILE *fp;
 	size_t len = 0;
 	ssize_t read;
+	int i;
 
 	fp = fopen(file->name, "r");
 	if (fp == NULL)
@@ -24,6 +25,10 @@ int _readline(stack_t **stack, obj_t *file)
 		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
 			break;
+		i = 0;
+		while (file->str_tokenized[i])
+			free(file->str_tokenized[i++]);
+		free(file->str_tokenized);
 
 	}
 
@@ -40,7 +45,6 @@ int _readline(stack_t **stack, obj_t *file)
 int _exec(stack_t **stack, obj_t *object)
 {
 	int i;
-	char **str;
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -53,11 +57,11 @@ int _exec(stack_t **stack, obj_t *object)
 			{NULL, NULL}
 		};
 
-	str = _tokenize(object->str, " \t\n");
+	object->str_tokenized = _tokenize(object->str, " \t\n");
 
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, str[0]) == 0)
+		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)
 		{
 			s[i].f(stack, object);
 			return (0);

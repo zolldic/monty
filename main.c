@@ -9,16 +9,20 @@
 
 int main(int ac, char **av)
 {
-	obj_t *file;
+	obj_t *file = malloc(sizeof(obj_t));
 	stack_t *stack = malloc(sizeof(stack_t));
 
-	file = (obj_t *)malloc(sizeof(obj_t));
-	if (!file)
+	if (!file || !stack)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		if (stack)
+			free(stack);
+		if (file)
+			free(file);
 		exit(EXIT_FAILURE);
 	}
 
+	file->ref_to_stack = stack;
 	if (ac != 2)
 	{
 		file->flag = ACERR;
@@ -36,6 +40,7 @@ int main(int ac, char **av)
 
 	_readline(&stack, file);
 	_error(file);
+	_free_object(file);
 
 	return (0);
 }

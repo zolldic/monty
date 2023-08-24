@@ -8,12 +8,25 @@
 void _push(stack_t **st, obj_t *object)
 {
 	char **ob;
+	int i;
 
 	ob = _tokenize(object->str, " \t\n");
 	if (_len(ob) < 2)
+	{
 		object->flag = PUSHERR;
+		i = 0;
+		while (ob[i])
+			free(ob[i++]);
+		free(ob);
+	}
 	else
+	{
 		add_node(st, atoi(ob[1]));
+		i = 0;
+		while (ob[i])
+			free(ob[i++]);
+		free(ob);
+	}
 }
 
 /**
