@@ -42,6 +42,7 @@ void _pall(stack_t **st, obj_t *object)
 		while (p)
 		{
 			printf("%d\n", p->n);
+			fflush(stdout);
 			p = p->next;
 		}
 	}

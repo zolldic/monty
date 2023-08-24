@@ -1,6 +1,5 @@
 #include "monty.h"
 
-
 /**
   * _len - find the length of string array.
   * @o: array.

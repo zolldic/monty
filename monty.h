@@ -94,6 +94,8 @@ int _len(char **o);
 stack_t *add_node_end(stack_t **head, const int n);
 stack_t *add_node(stack_t **head, const int n);
 void _free_stack(stack_t *head);
+int _empty(char *token);
+int _isnumber(char *d);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);
