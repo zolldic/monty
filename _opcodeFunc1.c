@@ -43,12 +43,8 @@ void _pall(stack_t **st, obj_t *object)
 	{
 		while (p && p->next)
 		{
-			p = p->next;
-		}
-		while (p)
-		{
 			printf("%d\n", p->n);
-			p = p->prev;
+			p = p->next;
 		}
 	}
 }

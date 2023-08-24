@@ -59,7 +59,7 @@ int _exec(stack_t **stack, obj_t *object)
 
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, *str) == 0)
+		if (strcmp(s[i].opcode, str[0]) == 0)
 		{
 			s[i].f(stack, object);
 			return (0);

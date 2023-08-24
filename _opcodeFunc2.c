@@ -13,7 +13,7 @@ void _push(stack_t **st, obj_t *object)
 	if (_len(ob) < 2)
 		object->flag = PUSHERR;
 	else
-		add_node_end(st, atoi(ob[1]));
+		add_node(st, atoi(ob[1]));
 }
 
 /**

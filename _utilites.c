@@ -42,6 +42,27 @@ stack_t *add_node_end(stack_t **head, const int n)
 }
 
 /**
+  * add_node - adds a new node at the beginning of a dlistint_t list.
+  * @head: dlistint_t list.
+  * @n: new node value.
+  * Return: the address of the new element, or NULL if it failed.
+  */
+stack_t *add_node(stack_t **head, const int n)
+{
+	stack_t *new = malloc(sizeof(stack_t));
+
+	if (!new)
+		return (NULL);
+	new->n = n;
+	new->next = *head;
+	new->prev = NULL;
+	if (*head != NULL)
+		(*head)->prev = new;
+	*head = new;
+	return (new);
+}
+
+/**
  * _tokenize - function that split a string into tokens, our own (strtok).
  * @str: the string to tokenize
  * @split: the delim used to split's string.
