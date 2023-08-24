@@ -41,7 +41,7 @@ void _pall(stack_t **st, obj_t *object)
 
 	if (object->mode == STACK)
 	{
-		while (p && p->next)
+		while (p)
 		{
 			printf("%d\n", p->n);
 			p = p->next;
