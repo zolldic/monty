@@ -16,7 +16,7 @@ int main(int ac, char **av)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		if (stack)
-			free(stack);
+			_free_stack(stack);
 		if (file)
 			free(file);
 		exit(EXIT_FAILURE);
@@ -41,6 +41,8 @@ int main(int ac, char **av)
 
 	_readline(&stack, file);
 	_error(file);
+	_error2(file);
+	_free_object(file);
 
 	return (0);
 }

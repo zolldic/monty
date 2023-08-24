@@ -5,22 +5,15 @@
   */
 void _free_object(obj_t *object)
 {
-	int i;
-	/*
-	   * to be free`d
-	   * str, str_tokenized, ref_to_stack.
-	   *
-	*/
-	if (object->str)
-		free(object->str);
-	i = 0;
-	if (object->str_tokenized)
+	if (object)
 	{
-		while (object->str_tokenized[i])
-			free(object->str_tokenized[i++]);
-		free(object->str_tokenized);
+		if (object->str)
+			free(object->str);
+		if (object->ref_to_stack)
+		{
+			_free_stack(object->ref_to_stack);
+			free(object->ref_to_stack);
+		}
+		free(object);
 	}
-	if (object->ref_to_stack)
-		_free_stack(object->ref_to_stack);
-	free(object);
 }

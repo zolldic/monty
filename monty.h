@@ -17,6 +17,7 @@
 #define POPERR 6
 #define SWAPERR 7
 #define ADDERR 8
+#define MEMERR 9
 
 
 #include <stdio.h>
@@ -88,6 +89,7 @@ typedef struct instruction_s
 int _readline(stack_t **, obj_t *);
 int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
+void _error2(obj_t *object);
 void _free_object(obj_t *object);
 char **_tokenize(char *str, char *split);
 int _len(char **o);
