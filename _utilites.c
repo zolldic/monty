@@ -32,6 +32,22 @@ int _len(char **o)
 }
 
 /**
+  * _free_stack - frees a stack_t.
+  * @head: stack_t.
+  */
+void _free_stack(stack_t *head)
+{
+	stack_t *temp = head;
+
+	while (temp)
+	{
+		temp = temp->next;
+		free(head);
+		head = temp;
+	}
+}
+
+/**
   * add_node_end - adds a new node at the end of a stack_t list.
   * @head: stack_t list.
   * @n: new node value.

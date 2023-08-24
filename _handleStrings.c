@@ -11,6 +11,7 @@ int _readline(stack_t **stack, obj_t *file)
 	FILE *fp;
 	size_t len = 0;
 	ssize_t read;
+	int i;
 
 	fp = fopen(file->name, "r");
 	if (fp == NULL)
@@ -18,17 +19,16 @@ int _readline(stack_t **stack, obj_t *file)
 		file->flag = FAERR;
 		return (-1);
 	}
-
-
-	file->line = 0;
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
 		(file->line)++;
 		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
-			continue;
-		else
 			break;
+		i = 0;
+		while (file->str_tokenized[i])
+			free(file->str_tokenized[i++]);
+		free(file->str_tokenized);
 
 	}
 
@@ -45,7 +45,6 @@ int _readline(stack_t **stack, obj_t *file)
 int _exec(stack_t **stack, obj_t *object)
 {
 	int i;
-	char **str;
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -58,22 +57,17 @@ int _exec(stack_t **stack, obj_t *object)
 			{NULL, NULL}
 		};
 
-	str = _tokenize(object->str, " \t\n");
-	if (str == NULL)
-	{
-		object->flag = PUSHERR;
-		return (-1);
-	}
+	object->str_tokenized = _tokenize(object->str, " \t\n");
+
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, str[0]) == 0)
+		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)
 		{
 			s[i].f(stack, object);
-			break;
+			return (0);
 		}
 	}
-
-	/* if the file empty */
+	object->flag = UKERR;
 	/* unknown instruction */
 	/* free the stack */
 	return (-1);
