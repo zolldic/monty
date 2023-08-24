@@ -27,7 +27,6 @@ void _nop(stack_t **st, obj_t *object)
 
 	printf("this is _nop function\n");
 	object->flag = NOERR;
-
 }
 
 /**
@@ -57,10 +56,20 @@ void _pall(stack_t **st, obj_t *object)
 
 void _pint(stack_t **st, obj_t *object)
 {
-	(void)st;
-	(void)object;
+	stack_t *p;
 
-	printf("this is _pint function\n");
+	p = *st;
+
+	if (object->mode == STACK)
+	{
+		if (p == NULL)
+			object->flag = PINTERR;
+		else
+		{
+			printf("%d\n", p->n);
+			p = p->next;
+		}
+	}
 	object->flag = NOERR;
 
 }

@@ -13,6 +13,7 @@
 #define UKERR 2
 #define LIERR 3
 #define PUSHERR 4
+#define PINTERR 5
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -34,6 +34,9 @@ void _error(obj_t *object)
 			/* error with a push command */
 			fprintf(stderr, "L%d: usage: push integer\n", object->line);
 			break;
+		case PINTERR:
+			fprintf(stderr, "L%d: can't pint, stack empty\n", object->line);
+			break;
 		default:
 			/* NOERR */
 			break;

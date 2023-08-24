@@ -1,5 +1,10 @@
 #include "monty.h"
 
+/**
+ * _check_push_arg - function to check push arg
+ * @c: push function argument
+ * Return: 0 on success, -1 on failure
+ */
 
 int _check_push_arg(char *c)
 {

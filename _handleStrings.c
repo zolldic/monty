@@ -72,7 +72,7 @@ int _exec(stack_t **stack, obj_t *object)
 			break;
 		}
 	}
-	
+
 	/* if the file empty */
 	/* unknown instruction */
 	/* free the stack */
