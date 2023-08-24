@@ -11,7 +11,10 @@ void _push(stack_t **st, obj_t *object)
 	if (_len(object->str_tokenized) < 2)
 		object->flag = PUSHERR;
 	else
-		add_node(st, atoi(object->str_tokenized[1]));
+		if (isdigit(*object->str_tokenized[1]))
+			add_node(st, atoi(object->str_tokenized[1]));
+		else
+			object->flag = PUSHERR;
 }
 
 /**
