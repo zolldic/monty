@@ -15,6 +15,8 @@
 #define PUSHERR 4
 #define PINTERR 5
 #define POPERR 6
+#define SWAPERR 7
+#define ADDERR 8
 
 
 #include <stdio.h>

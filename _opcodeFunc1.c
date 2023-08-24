@@ -7,12 +7,13 @@
  */
 void _add(stack_t **st, obj_t *object)
 {
-	(void)st;
-	(void)object;
+	stack_t *new;
 
-	printf("this is _add function\n");
+	new = *st;
+	new->n += (*st)->next->n;
+	new->next = new->next->next;
+
 	object->flag = NOERR;
-
 }
 
 /**
@@ -23,9 +24,7 @@ void _add(stack_t **st, obj_t *object)
 void _nop(stack_t **st, obj_t *object)
 {
 	(void)st;
-	(void)object;
 
-	printf("this is _nop function\n");
 	object->flag = NOERR;
 }
 
