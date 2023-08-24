@@ -22,6 +22,7 @@ int main(int ac, char **av)
 		exit(EXIT_FAILURE);
 	}
 
+	stack = NULL;
 	file->ref_to_stack = stack;
 	if (ac != 2)
 	{
@@ -40,7 +41,6 @@ int main(int ac, char **av)
 
 	_readline(&stack, file);
 	_error(file);
-	_free_object(file);
 
 	return (0);
 }
