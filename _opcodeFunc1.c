@@ -63,7 +63,10 @@ void _pint(stack_t **st, obj_t *object)
 	if (object->mode == STACK)
 	{
 		if (p == NULL)
+		{
 			object->flag = PINTERR;
+			return;
+		}
 		else
 		{
 			printf("%d\n", p->n);
@@ -82,10 +85,24 @@ void _pint(stack_t **st, obj_t *object)
 
 void _pop(stack_t **st, obj_t *object)
 {
-	(void)st;
-	(void)object;
+	stack_t *p;
 
-	printf("this is _pop function\n");
+	p = *st;
+
+	if (object->mode == STACK)
+	{
+		if (p == NULL)
+		{
+			object->flag = POPERR;
+			return;
+		}
+		else
+		{
+			(*st) = (*st)->next;
+			free(p);
+		}
+	}
+
 	object->flag = NOERR;
 
 }

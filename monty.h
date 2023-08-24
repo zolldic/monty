@@ -14,6 +14,8 @@
 #define LIERR 3
 #define PUSHERR 4
 #define PINTERR 5
+#define POPERR 6
+
 
 #include <stdio.h>
 #include <stdlib.h>

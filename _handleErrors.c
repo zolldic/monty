@@ -37,6 +37,9 @@ void _error(obj_t *object)
 		case PINTERR:
 			fprintf(stderr, "L%d: can't pint, stack empty\n", object->line);
 			break;
+		case POPERR:
+			fprintf(stderr, "L%d: can't pop an empty stack\n", object->line);
+			break;
 		default:
 			/* NOERR */
 			break;
