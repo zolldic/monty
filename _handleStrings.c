@@ -22,6 +22,8 @@ int _readline(stack_t **stack, obj_t *file)
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
 		(file->line)++;
+		if (read < 2 || _empty(file->str))
+			continue;
 		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
 			break;
@@ -45,7 +47,6 @@ int _readline(stack_t **stack, obj_t *file)
 int _exec(stack_t **stack, obj_t *object)
 {
 	int i;
-
 	instruction_t s[] = {
 			{"push", _push},
 			{"pall", _pall},
@@ -59,6 +60,8 @@ int _exec(stack_t **stack, obj_t *object)
 
 	object->str_tokenized = _tokenize(object->str, " \t\n");
 
+	if (object->str_tokenized == NULL)
+		return (0);
 	for (i = 0; s[i].opcode; i++)
 	{
 		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)
