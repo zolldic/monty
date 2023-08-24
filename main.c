@@ -12,6 +12,8 @@ int main(int ac, char **av)
 	obj_t *file;
 	stack_t *stack = malloc(sizeof(stack_t));
 
+	stack = NULL;
+
 	file = (obj_t *)malloc(sizeof(obj_t));
 	if (!file)
 	{
