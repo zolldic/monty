@@ -1,5 +1,16 @@
 #include "monty.h"
 
+
+int _check_push_arg(char *c)
+{
+	if (*c >= 65 && *c <= 90)
+		return (-1);
+	if (*c >= 96 && *c <= 122)
+		return (-1);
+
+	return (0);
+}
+
 /**
   * _len - find the length of string array.
   * @o: array.

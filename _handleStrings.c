@@ -18,11 +18,16 @@ int _readline(stack_t **stack, obj_t *file)
 		file->flag = FAERR;
 		return (-1);
 	}
+
+
+	file->line = 0;
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
 		(file->line)++;
 		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
+			continue;
+		else
 			break;
 
 	}
@@ -54,16 +59,21 @@ int _exec(stack_t **stack, obj_t *object)
 		};
 
 	str = _tokenize(object->str, " \t\n");
-
+	if (str == NULL)
+	{
+		object->flag = PUSHERR;
+		return (-1);
+	}
 	for (i = 0; s[i].opcode; i++)
 	{
 		if (strcmp(s[i].opcode, str[0]) == 0)
 		{
 			s[i].f(stack, object);
-			return (0);
+			break;
 		}
 	}
-	object->flag = UKERR;
+	
+	/* if the file empty */
 	/* unknown instruction */
 	/* free the stack */
 	return (-1);

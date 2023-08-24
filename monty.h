@@ -83,6 +83,7 @@ char **_tokenize(char *str, char *split);
 int _len(char **o);
 stack_t *add_node_end(stack_t **head, const int n);
 stack_t *add_node(stack_t **head, const int n);
+int _check_push_arg(char *c);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);

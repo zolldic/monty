@@ -1,5 +1,6 @@
 #include "monty.h"
 
+
 /**
  * _push - execute push opcode
  * @st: stack
@@ -10,6 +11,11 @@ void _push(stack_t **st, obj_t *object)
 	char **ob;
 
 	ob = _tokenize(object->str, " \t\n");
+	if (_check_push_arg(ob[1]) == -1)
+	{
+		object->flag = PUSHERR;
+		return;
+	}
 	if (_len(ob) < 2)
 		object->flag = PUSHERR;
 	else
