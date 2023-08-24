@@ -20,12 +20,10 @@ int _readline(stack_t **stack, obj_t *file)
 	}
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
-		if (_exec(stack, file))
-		{
+		(file->line)++;
+		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
-			printf("_exec error\n");
 			break;
-		}
 
 	}
 
@@ -59,13 +57,13 @@ int _exec(stack_t **stack, obj_t *object)
 
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, *str) == 0)
+		if (strcmp(s[i].opcode, str[0]) == 0)
 		{
 			s[i].f(stack, object);
 			return (0);
 		}
 	}
-
+	object->flag = UKERR;
 	/* unknown instruction */
 	/* free the stack */
 	return (-1);

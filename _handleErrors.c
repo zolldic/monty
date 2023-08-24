@@ -24,7 +24,7 @@ void _error(obj_t *object)
 			break;
 		case UKERR:
 			/* unknown instruction error */
-			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+			fprintf(stderr, "L%d: unknown instruction %s", object->line, object->str);
 			break;
 		case LIERR:
 			/* error with a command */
@@ -32,7 +32,7 @@ void _error(obj_t *object)
 			break;
 		case PUSHERR:
 			/* error with a push command */
-			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+			fprintf(stderr, "L%d: usage: push integer\n", object->line);
 			break;
 		default:
 			/* NOERR */
