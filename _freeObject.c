@@ -3,6 +3,7 @@
 /**
   * _free_object - free object.
   * @object: object to free.
+  * @stack: stack_t object.
   */
 void _free_object(stack_t *stack, obj_t *object)
 {

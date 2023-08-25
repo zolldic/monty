@@ -5,10 +5,11 @@
 
 - usage of the programe: `./monty file`
 
+- testing: `./runTest.sh <task_number>  
+	example `./runTest.sh 1`
+
 - issues:
-	- implement the 3rd case in _error().
-	- calling exit() before freeing memory.
-	- hidden invalid free.
+	- spaces and blank lines cause segfault.
 
 - TO-DOs:
 	- `_readLine()`:
