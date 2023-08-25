@@ -34,12 +34,20 @@ void _push(stack_t **st, obj_t *object)
  */
 void _swap(stack_t **st, obj_t *object)
 {
-	(void)st;
-	(void)object;
+	stack_t *a, *b;
+	int temp;
 
-	printf("this is _swap function\n");
-	object->flag = NOERR;
+	if (_stack_len(st) < 2)
+	{
+		object->flag = SWAPERR;
+		return;
+	}
+	a = *st;
+	b = (*st)->next;
 
+	temp = a->n;
+	a->n = b->n;
+	b->n = temp;
 }
 
 /**
