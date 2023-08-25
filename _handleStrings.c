@@ -62,12 +62,13 @@ int _exec(stack_t **stack, obj_t *object)
 		};
 
 	object->str_tokenized = _tokenize(object->str, " \t\n");
-
 	for (i = 0; s[i].opcode; i++)
 	{
-		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)
+		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0 || 
+				object->str_tokenized[0][0] == '#')
 		{
-			s[i].f(stack, object);
+			if (object->str_tokenized[0][0] != '#')
+				s[i].f(stack, object);
 			return (0);
 		}
 	}
