@@ -15,13 +15,16 @@ void _free_object(stack_t *stack, obj_t *object)
 			free(object->str);
 		if (object->flag != NOERR)
 		{
-			i = 0;
-			while ((object->str_tokenized)[i])
+			if (object->str_tokenized)
 			{
-				free((object->str_tokenized)[i]);
-				i++;
+				i = 0;
+				while ((object->str_tokenized)[i])
+				{
+					free((object->str_tokenized)[i]);
+					i++;
+				}
+				free(object->str_tokenized);
 			}
-			free(object->str_tokenized);
 		}
 		if (stack)
 		{

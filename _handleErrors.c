@@ -7,13 +7,6 @@
 
 void _error(obj_t *object)
 {
-
-	/**
-	 * 0 - ac != 2 condation
-	 * 1 - if opening file failed.
-	 * 2 - invalid instructions
-	 */
-
 	switch (object->flag)
 	{
 		case ACERR:
