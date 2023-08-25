@@ -1,59 +1,130 @@
 #include "monty.h"
 
+
 /**
-  * _empty - check if string is empty.
-  * @token: string to check.
-  * Return: 1 if string is empty 0 otherwise.
+  * _len - find the length of string array.
+  * @o: array.
+  * Return: length of string array.
   */
-int _empty(char *token)
+int _len(char **o)
 {
 	int i;
+	unsigned int length = 0;
 
-	for (i = 0; token[i]; i++)
-		if (token[i] != ' ' && token[i] != '\n' && token[i] != '\t')
-			return (0);
-	return (1);
+	for (i = 0; o[i]; i++)
+		length++;
+	return (length);
 }
 
 /**
-  * _isnumber - check if string is number.
-  * @d: number.
-  * Return: 1 if is number and 0 if it's not.
+  * _free_stack - frees a stack_t.
+  * @head: stack_t.
   */
-int _isnumber(char *d)
+void _free_stack(stack_t *head)
 {
-	int n;
+	stack_t *temp = head;
 
-	if (!d)
-		return (0);
-	if (d[0] == '-')
-		n = 1;
-	else
-		n = 0;
-
-	while (d[n])
-		if (!isdigit(d[n++]))
-			return (0);
-	return (1);
+	while (temp)
+	{
+		temp = temp->next;
+		free(head);
+		head = temp;
+	}
 }
 
 /**
- * _stack_len - function to get stack length;
- * @st: stack
- * Return: stack length
+  * add_node_end - adds a new node at the end of a stack_t list.
+  * @head: stack_t list.
+  * @n: new node value.
+  * Return: the address of the new element, or NULL if it failed.
+  */
+stack_t *add_node_end(stack_t **head, const int n)
+{
+	stack_t *tail = *head;
+	stack_t *new = malloc(sizeof(stack_t));
+
+	if (!new)
+		return (NULL);
+	while (tail && tail->next)
+		tail = tail->next;
+	new->n = n;
+	if (tail)
+	{
+		new->prev = tail;
+		tail->next = new;
+	}
+	else
+		*head = new;
+	return (new);
+}
+
+/**
+  * add_node - adds a new node at the beginning of a dlistint_t list.
+  * @head: dlistint_t list.
+  * @n: new node value.
+  * Return: the address of the new element, or NULL if it failed.
+  */
+stack_t *add_node(stack_t **head, const int n)
+{
+	stack_t *new = malloc(sizeof(stack_t));
+
+	if (!new)
+		return (NULL);
+	new->n = n;
+	new->next = *head;
+	new->prev = NULL;
+	if (*head != NULL)
+		(*head)->prev = new;
+	*head = new;
+	return (new);
+}
+
+/**
+ * _tokenize - function that split a string into tokens, our own (strtok).
+ * @str: the string to tokenize
+ * @split: the delim used to split's string.
+ * Return: the tokenize string on success, on failure NULL.
  */
 
-int _stack_len(stack_t **st)
+char **_tokenize(char *str, char *split)
 {
-	int i;
-	stack_t *p;
+	char **toks;
+	int delim = 0;
+	int i, index = 0;
+	int start, end;
 
-	p = *st;
-	i = 0;
-	while (p != NULL)
+	if (!str || !split)
+		return (NULL);
+	for (i = 0; str[i]; i++)
+		if (strchr(split, str[i]) != NULL)
+			delim++;
+	toks = (char **)malloc(sizeof(char *) * (delim + 2));
+	if (!toks)
 	{
-		p = p->next;
-		i++;
+		perror("malloc");
+		return (NULL);
 	}
-	return (i);
+
+	start = 0;
+	while (str[start] != '\0')
+	{
+		while (str[start] != '\0' && strchr(split, str[start]) != NULL)
+			start++;
+		if (str[start] == '\0')
+			break;
+
+		end = start;
+		while (str[end] != '\0' && strchr(split, str[end]) == NULL)
+			end++;
+
+		toks[index] = malloc(end - start + 1);
+		strncpy(toks[index], str + start, end - start);
+		toks[index][end - start] = '\0';
+		index++;
+		start = end;
+	}
+
+	toks[index] = NULL;
+
+	return (toks);
 }

@@ -49,6 +49,7 @@ int _readline(stack_t **stack, obj_t *file)
 int _exec(stack_t **stack, obj_t *object)
 {
 	int i;
+	char **temp;
 
 	instruction_t s[] = {
 			{"push", _push},
@@ -65,7 +66,14 @@ int _exec(stack_t **stack, obj_t *object)
 			{NULL, NULL}
 		};
 
-	object->str_tokenized = _tokenize(object->str, " \t\n");
+	temp = _tokenize(object->str, "#");
+	object->str_tokenized = _tokenize(temp[0], " \t\n");
+	i = 0;
+	while (temp[i])
+		free(temp[i++]);
+	free(temp);
+	if (object->str[0] == '#')
+		return (0);
 	for (i = 0; s[i].opcode; i++)
 	{
 		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)
