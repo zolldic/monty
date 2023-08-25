@@ -10,39 +10,33 @@
 int main(int ac, char **av)
 {
 	obj_t *file = malloc(sizeof(obj_t));
-	stack_t *stack = malloc(sizeof(stack_t));
+	stack_t *stack;
 
-	if (!file || !stack)
+	if (!file)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		if (stack)
-			_free_stack(stack);
-		if (file)
-			free(file);
+		free(file);
 		exit(EXIT_FAILURE);
 	}
 
 	stack = NULL;
-	file->ref_to_stack = stack;
 	if (ac != 2)
-	{
 		file->flag = ACERR;
-		/*
-		 * be careful when calling this function.
-		 * add _free_object() function to call it inside this function.
-		 */
-		_error(file);
+	else
+	{
+		file->name = av[1];
+		file->str = NULL;
+		file->flag = NOERR;
+		file->mode = STACK;
+		_readline(&stack, file);
 	}
 
-	file->name = av[1];
-	file->str = NULL;
-	file->flag = NOERR;
-	file->mode = STACK;
-
-	_readline(&stack, file);
 	_error(file);
-	_error2(file);
-	_free_object(file);
-
-	return (0);
+	if (file->flag != NOERR)
+	{
+		_free_object(stack, file);
+		exit(EXIT_FAILURE);
+	}
+	_free_object(stack, file);
+	return (EXIT_SUCCESS);
 }

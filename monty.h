@@ -63,7 +63,6 @@ typedef struct stack_s
  * @mode: controller to switch moods (STACK, QUEUE)
  * @flag: an integer value to controle errors messages.
  * @str_tokenized: refernce to str tokenized array.
- * @ref_to_stack: reference to stack.
  */
 
 typedef struct obj
@@ -74,7 +73,6 @@ typedef struct obj
 	int mode;
 	int flag;
 	char **str_tokenized;
-	stack_t *ref_to_stack;
 } obj_t;
 
 /**
@@ -98,7 +96,7 @@ int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
 void _error2(obj_t *);
 
-void _free_object(obj_t *object);
+void _free_object(stack_t *s, obj_t *object);
 char **_tokenize(char *str, char *split);
 int _len(char **o);
 stack_t *add_node_end(stack_t **head, const int n);

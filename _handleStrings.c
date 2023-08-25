@@ -26,10 +26,12 @@ int _readline(stack_t **stack, obj_t *file)
 			/*flag = {LIERR | UKERR} */
 			break;
 		i = 0;
-		while (file->str_tokenized[i])
-			free(file->str_tokenized[i++]);
+		while ((file->str_tokenized)[i])
+		{
+			free((file->str_tokenized)[i]);
+			i++;
+		}
 		free(file->str_tokenized);
-
 	}
 
 	fclose(fp);

@@ -9,13 +9,16 @@
 
 void _push(stack_t **st, obj_t *object)
 {
+	stack_t *s = NULL;
+
 	if (_len(object->str_tokenized) < 2)
 		object->flag = PUSHERR;
 	else
 	{
 		if (_isnumber(object->str_tokenized[1]))
 		{
-			if (!add_node(st, atoi(object->str_tokenized[1])))
+			s = add_node(st, atoi(object->str_tokenized[1]));
+			if (s == NULL)
 				object->flag = MEMERR;
 		}
 		else

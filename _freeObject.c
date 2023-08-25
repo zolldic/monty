@@ -4,17 +4,28 @@
   * _free_object - free object.
   * @object: object to free.
   */
-
-void _free_object(obj_t *object)
+void _free_object(stack_t *stack, obj_t *object)
 {
+	int i;
+
 	if (object)
 	{
 		if (object->str)
 			free(object->str);
-		if (object->ref_to_stack)
+		if (object->flag != NOERR)
 		{
-			_free_stack(object->ref_to_stack);
-			free(object->ref_to_stack);
+			i = 0;
+			while ((object->str_tokenized)[i])
+			{
+				free((object->str_tokenized)[i]);
+				i++;
+			}
+			free(object->str_tokenized);
+		}
+		if (stack)
+		{
+			_free_stack(stack);
+			free(stack);
 		}
 		free(object);
 	}
