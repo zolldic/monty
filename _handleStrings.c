@@ -22,6 +22,8 @@ int _readline(stack_t **stack, obj_t *file)
 	while ((read = getline(&(file->str), &len, fp)) != -1)
 	{
 		(file->line)++;
+		if (read < 2 || _empty(file->str))
+			continue;
 		if (_exec(stack, file) || file->flag != -1)
 			/*flag = {LIERR | UKERR} */
 			break;

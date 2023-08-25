@@ -37,8 +37,6 @@ int _isnumber(char *d)
 	return (1);
 }
 
-#include "monty.h"
-
 /**
  * _stack_len - function to get stack length;
  * @st: stack
