@@ -9,6 +9,5 @@
 void _nop(stack_t **st, obj_t *object)
 {
 	(void)st;
-
-	object->flag = NOERR;
+	(void)object;
 }

@@ -18,14 +18,11 @@ void _add(stack_t **st, obj_t *object)
 		object->flag = ADDERR;
 		return;
 	}
-	else
-	{
-		new = *st;
-		res = (*st)->next->n + (*st)->n;
-		new->n = res;
-		new->next = new->next->next;
-		object->flag = NOERR;
-	}
+	new = *st;
+	res = (*st)->next->n + (*st)->n;
+	*st = (*st)->next;
+	(*st)->n = res;
+	free(new);
 }
 
 /**
@@ -45,14 +42,11 @@ void _sub(stack_t **st, obj_t *object)
 		object->flag = SUBERR;
 		return;
 	}
-	else
-	{
-		new = *st;
-		res = (*st)->next->n - (*st)->n;
-		new->n = res;
-		new->next = new->next->next;
-		object->flag = NOERR;
-	}
+	new = *st;
+	res = (*st)->next->n - (*st)->n;
+	*st = (*st)->next;
+	(*st)->n = res;
+	free(new);
 }
 
 /**
@@ -72,20 +66,16 @@ void _div(stack_t **st, obj_t *object)
 		object->flag = DIVERR;
 		return;
 	}
-	else
+	new = *st;
+	if (new->n == 0)
 	{
-		new = *st;
-		if (new->n == 0)
-		{
-			object->flag = ZERODIV;
-			return;
-		}
-		res = (*st)->next->n / (*st)->n;
-		new->n = res;
-		new->next = new->next->next;
-		object->flag = NOERR;
+		object->flag = ZERODIV;
+		return;
 	}
-
+	res = (*st)->next->n / (*st)->n;
+	*st = (*st)->next;
+	(*st)->n = res;
+	free(new);
 }
 
 /**
@@ -105,14 +95,11 @@ void _mul(stack_t **st, obj_t *object)
 		object->flag = MULERR;
 		return;
 	}
-	else
-	{
-		new = *st;
-		res = (*st)->next->n * (*st)->n;
-		new->n = res;
-		new->next = new->next->next;
-		object->flag = NOERR;
-	}
+	new = *st;
+	res = (*st)->next->n * (*st)->n;
+	*st = (*st)->next;
+	(*st)->n = res;
+	free(new);
 }
 
 /**
@@ -129,20 +116,17 @@ void _mod(stack_t **st, obj_t *object)
 	len = _stack_len(st);
 	if (len < 2)
 	{
-		object->flag = DIVERR;
+		object->flag = MODERR;
 		return;
 	}
-	else
+	new = *st;
+	if (new->n == 0)
 	{
-		new = *st;
-		if (new->n == 0)
-		{
-			object->flag = ZERODIV;
-			return;
-		}
-		res = (*st)->next->n % (*st)->n;
-		new->n = res;
-		new->next = new->next->next;
-		object->flag = NOERR;
+		object->flag = ZERODIV;
+		return;
 	}
+	res = (*st)->next->n % (*st)->n;
+	*st = (*st)->next;
+	(*st)->n = res;
+	free(new);
 }
