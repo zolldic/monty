@@ -25,7 +25,6 @@ void _free_object(stack_t *stack, obj_t *object)
 		if (stack)
 		{
 			_free_stack(stack);
-			free(stack);
 		}
 		free(object);
 	}
