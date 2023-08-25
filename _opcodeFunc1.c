@@ -1,31 +1,42 @@
 #include "monty.h"
 
+
 /**
- * _add - execute add opcode
+ * _push - execute push opcode
  * @st: stack
  * @object: struct contain info about data from file
  */
-void _add(stack_t **st, obj_t *object)
+
+void _push(stack_t **st, obj_t *object)
 {
-	stack_t *new;
-
-	new = *st;
-	new->n += (*st)->next->n;
-	new->next = new->next->next;
-
-	object->flag = NOERR;
+	if (_len(object->str_tokenized) < 2)
+		object->flag = PUSHERR;
+	else
+	{
+		if (_isnumber(object->str_tokenized[1]))
+		{
+			if (!add_node(st, atoi(object->str_tokenized[1])))
+				object->flag = MEMERR;
+		}
+		else
+			object->flag = PUSHERR;
+	}
 }
 
+
 /**
- * _nop - execute nop opcode
+ * _swap - execute swap opcode
  * @st: stack
  * @object: struct contain info about data from file
  */
-void _nop(stack_t **st, obj_t *object)
+void _swap(stack_t **st, obj_t *object)
 {
 	(void)st;
+	(void)object;
 
+	printf("this is _swap function\n");
 	object->flag = NOERR;
+
 }
 
 /**
@@ -102,7 +113,5 @@ void _pop(stack_t **st, obj_t *object)
 			free(p);
 		}
 	}
-
 	object->flag = NOERR;
-
 }

@@ -18,6 +18,13 @@
 #define SWAPERR 7
 #define ADDERR 8
 #define MEMERR 9
+#define SUBERR 10
+
+#define DIVERR 11
+#define ZERODIV 12
+
+#define MULERR 13
+#define MODERR 14
 
 
 #include <stdio.h>
@@ -89,13 +96,15 @@ typedef struct instruction_s
 int _readline(stack_t **, obj_t *);
 int _exec(stack_t **, obj_t *object);
 void _error(obj_t *);
-void _error2(obj_t *object);
+void _error2(obj_t *);
+
 void _free_object(obj_t *object);
 char **_tokenize(char *str, char *split);
 int _len(char **o);
 stack_t *add_node_end(stack_t **head, const int n);
 stack_t *add_node(stack_t **head, const int n);
 void _free_stack(stack_t *head);
+int _stack_len(stack_t **st);
 int _empty(char *token);
 int _isnumber(char *d);
 
@@ -107,5 +116,9 @@ void _pop(stack_t **, obj_t *);
 void _swap(stack_t **, obj_t *);
 void _add(stack_t **, obj_t *);
 void _nop(stack_t **, obj_t *);
+void _sub(stack_t **st, obj_t *object);
+void _div(stack_t **st, obj_t *object);
+void _mul(stack_t **st, obj_t *object);
+void _mod(stack_t **st, obj_t *object);
 
 #endif

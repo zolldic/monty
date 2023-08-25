@@ -4,8 +4,16 @@
  * _error - function that handle errors
  * @object: characteristics of the file.
  */
+
 void _error(obj_t *object)
 {
+
+	/**
+	 * 0 - ac != 2 condation
+	 * 1 - if opening file failed.
+	 * 2 - invalid instructions
+	 */
+
 	switch (object->flag)
 	{
 		case ACERR:
@@ -28,42 +36,7 @@ void _error(obj_t *object)
 			break;
 		default:
 			/* NOERR */
-			break;
-	}
-
-	if (object->flag != NOERR)
-	{
-		_free_object(object);
-		exit(EXIT_FAILURE);
-	}
-}
-
-/**
- * _error2 - function that handle errors
- * @object: characteristics of the file.
- */
-void _error2(obj_t *object)
-{
-
-	switch (object->flag)
-	{
-		case PINTERR:
-			fprintf(stderr, "L%d: can't pint, stack empty\n", object->line);
-			break;
-		case POPERR:
-			fprintf(stderr, "L%d: can't pop an empty stack\n", object->line);
-			break;
-		case SWAPERR:
-			fprintf(stderr, "L%d: can't swap, stack too short\n", object->line);
-			break;
-		case ADDERR:
-			fprintf(stderr, "L%d: can't add, stack too short\n", object->line);
-			break;
-		case MEMERR:
-			fprintf(stderr, "Error: malloc failed\n");
-			break;
-		default:
-			/* NOERR */
+			_error2(object);
 			break;
 	}
 

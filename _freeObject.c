@@ -1,8 +1,10 @@
 #include "monty.h"
+
 /**
   * _free_object - free object.
   * @object: object to free.
   */
+
 void _free_object(obj_t *object)
 {
 	if (object)
