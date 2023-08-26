@@ -123,5 +123,7 @@ void _mul(stack_t **st, obj_t *object);
 void _mod(stack_t **st, obj_t *object);
 void _pchar(stack_t **st, obj_t *object);
 void _pstr(stack_t **st, obj_t *object);
+void _rotl(stack_t **st, obj_t *object);
+void _rotr(stack_t **st, obj_t *object);
 
 #endif

@@ -68,3 +68,29 @@ void _pstr(stack_t **st, obj_t *object)
 		printf("\n");
 	}
 }
+
+/**
+ * _rotl - rotates the stack to the top
+ * @st: stack
+ * @object: structure object
+ */
+
+void _rotl(stack_t **st, obj_t *object)
+{
+	int len;
+	stack_t *top, *last;
+
+	len = _stack_len(st);
+	if (len < 2)
+		return;
+
+	top = *st;
+	last = *st;
+	while (last->next != NULL)
+		last = last->next;
+
+	(*st) = (*st)->next;
+	last->next = top;
+	top->next = NULL;
+	object->flag = NOERR;
+}
