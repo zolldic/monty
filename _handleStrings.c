@@ -52,18 +52,9 @@ int _exec(stack_t **stack, obj_t *object)
 	char **temp;
 
 	instruction_t s[] = {
-			{"push", _push},
-			{"pall", _pall},
-			{"pint", _pint},
-			{"pop", _pop},
-			{"swap", _swap},
-			{"add", _add},
-			{"nop", _nop},
-			{"sub", _sub},
-			{"div", _div},
-			{"mul", _mul},
-			{"mod", _mod},
-			{"pchar", _pchar},
+			{"push", _push}, {"pall", _pall}, {"pint", _pint}, {"pop", _pop},
+			{"swap", _swap}, {"add", _add}, {"nop", _nop}, {"sub", _sub},
+			{"div", _div}, {"mul", _mul}, {"mod", _mod}, {"pchar", _pchar},
 			{NULL, NULL}
 		};
 
@@ -75,6 +66,13 @@ int _exec(stack_t **stack, obj_t *object)
 	free(temp);
 	if (object->str[0] == '#')
 		return (0);
+	i = 0;
+	while (object->str[i] == ' ')
+	{
+		i++;
+		if (object->str[i] == '#')
+			return (0);
+	}
 	for (i = 0; s[i].opcode; i++)
 	{
 		if (strcmp(s[i].opcode, object->str_tokenized[0]) == 0)

@@ -9,8 +9,7 @@
 	example `./runTest.sh 1`
 
 - issues:
-	- spaces and blank lines cause segfault.
-	- spaces in comments cause segfault.
+	- NONE
 
 - TO-DOs:
 
