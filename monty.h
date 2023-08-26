@@ -26,6 +26,8 @@
 #define MULERR 13
 #define MODERR 14
 
+#define PCHARERR 15
+#define PEMPTYERR 16
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -105,6 +107,7 @@ void _free_stack(stack_t *head);
 int _stack_len(stack_t **st);
 int _empty(char *token);
 int _isnumber(char *d);
+int _isalpha(char c);
 
 /* opcodes functions */
 void _push(stack_t **, obj_t *);
@@ -118,5 +121,6 @@ void _sub(stack_t **st, obj_t *object);
 void _div(stack_t **st, obj_t *object);
 void _mul(stack_t **st, obj_t *object);
 void _mod(stack_t **st, obj_t *object);
+void _pchar(stack_t **st, obj_t *object);
 
 #endif

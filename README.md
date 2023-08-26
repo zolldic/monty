@@ -10,16 +10,9 @@
 
 - issues:
 	- spaces and blank lines cause segfault.
+	- spaces in comments cause segfault.
 
 - TO-DOs:
-	- `_readLine()`:
-		should read a line, return the number of bytes
-		if the line empty return value -1.
-	- `_exec()`:
-		should execute the opcode related function.
-	- `_free_object()`:
-		free all the data stored in the object.
-	- `opcodes functions` for the mandatory tasks.
 
 - Notes:
 	- naming convention:

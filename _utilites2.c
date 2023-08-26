@@ -58,3 +58,16 @@ int _stack_len(stack_t **st)
 	}
 	return (i);
 }
+
+/**
+ * _isalpha - check ASCII's
+ * @c: number parameter
+ * Return: 0 on success, -1 on failure
+ */
+
+int _isalpha(char c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 96 && c <= 122))
+		return (0);
+	return (-1);
+}

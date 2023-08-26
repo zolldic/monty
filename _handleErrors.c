@@ -18,11 +18,20 @@ void _error(obj_t *object)
 		case UKERR:
 			/* unknown instruction error */
 			fprintf(stderr, "L%u: unknown instruction %s\n", object->line,
-								object->str_tokenized[0]);
+					object->str_tokenized[0]);
 			break;
 		case PUSHERR:
 			/* error with a push command */
 			fprintf(stderr, "L%u: usage: push integer\n", object->line);
+			break;
+		case PINTERR:
+			fprintf(stderr, "L%u: can't pint, stack empty\n", object->line);
+			break;
+		case POPERR:
+			fprintf(stderr, "L%u: can't pop an empty stack\n", object->line);
+			break;
+		case SWAPERR:
+			fprintf(stderr, "L%u: can't swap, stack too short\n", object->line);
 			break;
 		default:
 			_error2(object);
@@ -39,15 +48,6 @@ void _error2(obj_t *object)
 {
 	switch (object->flag)
 	{
-		case PINTERR:
-			fprintf(stderr, "L%u: can't pint, stack empty\n", object->line);
-			break;
-		case POPERR:
-			fprintf(stderr, "L%u: can't pop an empty stack\n", object->line);
-			break;
-		case SWAPERR:
-			fprintf(stderr, "L%u: can't swap, stack too short\n", object->line);
-			break;
 		case ADDERR:
 			fprintf(stderr, "L%u: can't add, stack too short\n", object->line);
 			break;
@@ -68,6 +68,12 @@ void _error2(obj_t *object)
 			break;
 		case MEMERR:
 			fprintf(stderr, "Error: malloc failed\n");
+			break;
+		case PCHARERR:
+			fprintf(stderr, "L%u: can't pchar, value out of range\n", object->line);
+			break;
+		case PEMPTYERR:
+			fprintf(stderr, "L%u: can't pchar, stack empty\n", object->line);
 			break;
 		default:
 			break;

@@ -63,6 +63,7 @@ int _exec(stack_t **stack, obj_t *object)
 			{"div", _div},
 			{"mul", _mul},
 			{"mod", _mod},
+			{"pchar", _pchar},
 			{NULL, NULL}
 		};
 
