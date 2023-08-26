@@ -94,3 +94,30 @@ void _rotl(stack_t **st, obj_t *object)
 	top->next = NULL;
 	object->flag = NOERR;
 }
+
+
+/**
+ * _rotr - rotates the stack to the bottom
+ * @st: stack
+ * @object: structure object
+ */
+
+void _rotr(stack_t **st, obj_t *object)
+{
+	int len;
+	stack_t *top, *last;
+
+	len = _stack_len(st);
+	if (len < 2)
+		return;
+
+	top = *st;
+	last = *st;
+	while (last->next != NULL)
+		last = last->next;
+
+	(*st) = (*st)->next;
+	last->next = top;
+	top->next = NULL;
+	object->flag = NOERR;
+}

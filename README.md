@@ -12,7 +12,7 @@
 	- NONE
 
 - TO-DOs:  
-	- impelement opcode functions {`rotl`, `rotr`, `queue`}
+	- impelement opcode functions {`queue`}
 
 - Notes:
 	- naming convention:
