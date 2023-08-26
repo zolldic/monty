@@ -17,7 +17,10 @@ void _push(stack_t **st, obj_t *object)
 	{
 		if (_isnumber(object->str_tokenized[1]))
 		{
-			s = add_node(st, atoi(object->str_tokenized[1]));
+			if (object->mode == STACK)
+				s = add_node(st, atoi(object->str_tokenized[1]));
+			else if (object->mode == QUEUE)
+				s = add_node_end(st, atoi(object->str_tokenized[1]));
 			if (s == NULL)
 				object->flag = MEMERR;
 		}
@@ -59,14 +62,12 @@ void _pall(stack_t **st, obj_t *object)
 {
 	stack_t *p = *st;
 
-	if (object->mode == STACK)
+	(void)object;
+	while (p)
 	{
-		while (p)
-		{
-			printf("%d\n", p->n);
-			fflush(stdout);
-			p = p->next;
-		}
+		printf("%d\n", p->n);
+		fflush(stdout);
+		p = p->next;
 	}
 }
 
@@ -80,23 +81,19 @@ void _pint(stack_t **st, obj_t *object)
 {
 	stack_t *p;
 
+	(void)object;
 	p = *st;
 
-	if (object->mode == STACK)
+	if (p == NULL)
 	{
-		if (p == NULL)
-		{
-			object->flag = PINTERR;
-			return;
-		}
-		else
-		{
-			printf("%d\n", p->n);
-			p = p->next;
-		}
+		object->flag = PINTERR;
+		return;
 	}
-	object->flag = NOERR;
-
+	else
+	{
+		printf("%d\n", p->n);
+		p = p->next;
+	}
 }
 
 /**
@@ -111,18 +108,14 @@ void _pop(stack_t **st, obj_t *object)
 
 	p = *st;
 
-	if (object->mode == STACK)
+	if (p == NULL)
 	{
-		if (p == NULL)
-		{
-			object->flag = POPERR;
-			return;
-		}
-		else
-		{
-			(*st) = (*st)->next;
-			free(p);
-		}
+		object->flag = POPERR;
+		return;
 	}
-	object->flag = NOERR;
+	else
+	{
+		(*st) = (*st)->next;
+		free(p);
+	}
 }

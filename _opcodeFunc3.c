@@ -25,28 +25,24 @@ void _pchar(stack_t **st, obj_t *object)
 
 	p = *st;
 
-	if (object->mode == STACK)
+	if (p == NULL)
 	{
-		if (p == NULL)
+		object->flag = PEMPTYERR;
+		return;
+	}
+	else
+	{
+		if (_isalpha(p->n) == 0)
 		{
-			object->flag = PEMPTYERR;
-			return;
+			printf("%c\n", p->n);
+			p = p->next;
 		}
 		else
 		{
-			if (_isalpha(p->n) == 0)
-			{
-				printf("%c\n", p->n);
-				p = p->next;
-			}
-			else
-			{
-				object->flag = PCHARERR;
-				return;
-			}
+			object->flag = PCHARERR;
+			return;
 		}
 	}
-	object->flag = NOERR;
 }
 
 /**
@@ -58,15 +54,13 @@ void _pstr(stack_t **st, obj_t *object)
 {
 	stack_t *p = *st;
 
-	if (object->mode == STACK)
+	(void)object;
+	while (p && p->n > 0 && p->n < 128)
 	{
-		while (p && p->n > 0 && p->n < 128)
-		{
-			printf("%c", p->n);
-			p = p->next;
-		}
-		printf("\n");
+		printf("%c", p->n);
+		p = p->next;
 	}
+	printf("\n");
 }
 
 /**

@@ -55,7 +55,8 @@ int _exec(stack_t **stack, obj_t *object)
 			{"push", _push}, {"pall", _pall}, {"pint", _pint}, {"pop", _pop},
 			{"swap", _swap}, {"add", _add}, {"nop", _nop}, {"sub", _sub},
 			{"div", _div}, {"mul", _mul}, {"mod", _mod}, {"pchar", _pchar},
-			{"pstr", _pstr}, {"rotl", _rotl}, {"rotr", _rotr}, {NULL, NULL}
+			{"pstr", _pstr}, {"rotl", _rotl}, {"rotr", _rotr}, {"queue", _queue},
+			{"stack", _stack}, {NULL, NULL}
 		};
 
 	temp = _tokenize(object->str, "#");
