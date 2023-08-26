@@ -5,13 +5,14 @@
 
 - usage of the programe: `./monty file`
 
-- testing: `./runTest.sh <task_number>  
-	example `./runTest.sh 1`
+- testing: `./runTest.sh <task_number>`   
+	- example `./runTest.sh 1`
 
 - issues:
 	- NONE
 
-- TO-DOs:
+- TO-DOs:  
+	- impelement opcode functions {`rotl`, `rotr`, `queue`}
 
 - Notes:
 	- naming convention:

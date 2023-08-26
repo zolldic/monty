@@ -49,3 +49,22 @@ void _pchar(stack_t **st, obj_t *object)
 	object->flag = NOERR;
 }
 
+/**
+  * _pstr - print string.
+  * @st: stack.
+  * @object: struct contain info about data from file
+  */
+void _pstr(stack_t **st, obj_t *object)
+{
+	stack_t *p = *st;
+
+	if (object->mode == STACK)
+	{
+		while (p && p->n > 0 && p->n < 128)
+		{
+			printf("%c", p->n);
+			p = p->next;
+		}
+		printf("\n");
+	}
+}

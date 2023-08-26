@@ -122,5 +122,6 @@ void _div(stack_t **st, obj_t *object);
 void _mul(stack_t **st, obj_t *object);
 void _mod(stack_t **st, obj_t *object);
 void _pchar(stack_t **st, obj_t *object);
+void _pstr(stack_t **st, obj_t *object);
 
 #endif
