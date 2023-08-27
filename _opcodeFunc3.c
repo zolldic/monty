@@ -99,19 +99,25 @@ void _rotl(stack_t **st, obj_t *object)
 void _rotr(stack_t **st, obj_t *object)
 {
 	int len;
-	stack_t *top, *last;
+	stack_t *prelast, *last;
 
 	len = _stack_len(st);
 	if (len < 2)
 		return;
 
-	top = *st;
 	last = *st;
+	prelast = last;
 	while (last->next != NULL)
-		last = last->next;
+	{
 
-	(*st) = (*st)->next;
-	last->next = top;
-	top->next = NULL;
+		prelast = last;
+		last = last->next;
+	}
+
+	prelast->next = NULL;
+	last->prev = NULL;
+	last->next = (*st);
+	(*st) = last;
+
 	object->flag = NOERR;
 }

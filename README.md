@@ -42,5 +42,5 @@
 ```bash
 $ git clone https://github.com/Fuzzworth/alx_test_suite.git # first clone this repo
 $ ./runTest.sh <task_number>
-```
+``
 
